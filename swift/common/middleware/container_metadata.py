@@ -40,15 +40,16 @@ class ContainerObjectMetadataMiddleware(object):
                 for item in json_response:
                     logfile.write(str(item) + '\n')
                     for obj_info_item in \
-                            get_object_info(req.environ, self.app, req.path_info + '\/'+item['name']).items():
+                            get_object_info(req.environ, self.app, req.path_info + '/'+item['name']).items():
+                        logfile.write(str(obj_info_item))
                         if obj_info_item[0] == 'meta' or obj_info_item[0] == 'sysmeta':
                             item[obj_info_item[0]] = obj_info_item[1]
-                            logfile.write(str(obj_info_item) + '\n')
-                    logfile.write(str(item) + '\n')
+                            # logfile.write(str(obj_info_item) + '\n')
+                    # logfile.write(str(item) + '\n')
 
-                logfile.write(str(json_response)+'\n')
-                logfile.write(str(resp.status_int)+'\n')
-                logfile.write(str(resp.headers)+'\n')
+                # logfile.write(str(json_response)+'\n')
+                # logfile.write(str(resp.status_int)+'\n')
+                # logfile.write(str(resp.headers)+'\n')
                 resp.body = json.dumps(json_response)
         except Exception, e:
             # logfile.write(str(e))
