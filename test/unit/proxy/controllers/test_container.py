@@ -70,10 +70,10 @@ class TestContainerController(TestRingBase):
 
     def test_container_info_in_response_env(self):
         controller = proxy_server.ContainerController(self.app, 'a', 'c')
-        with mock.patch('swift.proxy.controllers.base.http_connect',
-                        fake_http_connect(200, 200, body='')):
-            req = Request.blank('/v1/a/c', {'PATH_INFO': '/v1/a/c'})
-            resp = controller.HEAD(req)
+        # with mock.patch('swift.proxy.controllers.base.http_connect',
+        #                 fake_http_connect(200, 200, body='')):
+        req = Request.blank('/v1/a/c', {'PATH_INFO': '/v1/a/c'})
+        resp = controller.HEAD(req)
         self.assertEqual(2, resp.status_int // 100)
         self.assertTrue("swift.container/a/c" in resp.environ)
         self.assertEqual(headers_to_container_info(resp.headers),
